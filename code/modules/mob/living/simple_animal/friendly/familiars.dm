@@ -58,6 +58,20 @@
 	var/mob/living/carbon/familiar_summoner = null
 	var/inherent_spell = null
 	var/summoning_emote = null
+
+	//Stoneform Toad
+	var/icon/original_icon = null
+	var/original_icon_state = ""
+	var/original_icon_living = ""
+	var/original_name = ""
+	var/stoneform = FALSE
+
+	//Mist Lynx
+	var/list/saved_trails = list()
+
+	//Rune Rat
+	var/stored_books = list()
+	var/storage_limit = 5
 	
 //As far as I am aware, you cannot pat out fire as a familiar at least not in time for it to not kill you, this seems fair.
 /mob/living/simple_animal/pet/familiar/fire_act(added, maxstacks)
@@ -201,11 +215,6 @@
     speak_emote = list("croaks low", "grumbles")
     emote_hear = list("croaks lowly.", "lets out a bubbling sound.")
     emote_see = list("shudders like stone.", "thumps softly in place.")
-    var/icon/original_icon = null
-    var/original_icon_state = ""
-    var/original_icon_living = ""
-    var/original_name = ""
-    var/stoneform = FALSE
 
 /datum/status_effect/buff/familiar/settled_weight
 	id = "settled_weight"
@@ -239,7 +248,6 @@
     speak_emote = list("purrs softly", "whispers")
     emote_hear = list("lets out a soft yowl.", "whispers almost silently.")
     emote_see = list("pads in a circle.", "vanishes briefly, then reappears.")
-    var/list/saved_trails = list()
 
 /datum/status_effect/buff/familiar/silver_glance
 	id = "silver_glance"
@@ -269,8 +277,6 @@
     speak_emote = list("squeaks", "chatters")
     emote_hear = list("squeaks thoughtfully.", "sniffs the air.")
     emote_see = list("twitches its tail in patterns.", "skitters in a loop.")
-    var/stored_books = list()
-    var/storage_limit = 5
 
 /datum/status_effect/buff/familiar/threaded_thoughts
 	id = "threaded_thoughts"

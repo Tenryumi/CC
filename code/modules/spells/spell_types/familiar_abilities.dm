@@ -59,7 +59,7 @@
 		user.regenerate_icons()
 	return TRUE
 
-/mob/living/simple_animal/pet/familiar/pondstone_toad/proc/revert_from_stoneform()
+/mob/living/simple_animal/pet/familiar/proc/revert_from_stoneform()
 	if(!stoneform)
 		return
 
@@ -75,12 +75,12 @@
 	)
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/familiar/pondstone_toad/Move()
+/mob/living/simple_animal/pet/familiar/Move()
 	if(stoneform)
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/pet/familiar/pondstone_toad/death()
+/mob/living/simple_animal/pet/familiar/death()
 	. = ..()
 	if(stoneform)
 		revert_from_stoneform()
@@ -198,7 +198,7 @@
 		revert_cast()
 		return FALSE
 
-/mob/living/simple_animal/pet/familiar/rune_rat/death()
+/mob/living/simple_animal/pet/familiar/death()
 	. = ..()
 	for (var/obj/item/stored_item in src.stored_books)
 		stored_item.forceMove(src.loc)
@@ -419,7 +419,7 @@
 
 	return TRUE
 
-/proc/delete_illusory_fam(var/mob/living/simple_animal/pet/familiar/ripplefox/illusory_familiar, var/mob/user)
+/proc/delete_illusory_fam(var/mob/living/simple_animal/pet/familiar/illusory_familiar, var/mob/user)
 	if(illusory_familiar && !QDELETED(illusory_familiar))
 		user.visible_message(span_notice("[illusory_familiar.name] flickers and vanishes into nothingness."))
 		qdel(illusory_familiar)
