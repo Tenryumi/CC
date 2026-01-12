@@ -1,4 +1,7 @@
 //separate dm since hydro is getting bloated already
+var/electrodam = 80 //damage amount
+var/debuffdir = 8 //seconds of immobilize and clickcd (halved for you stimki druids)
+var/dendordam = 30 //FUCK YOOOOU DENDOR
 
 /obj/structure/glowshroom
 	name = "kneestingers"
@@ -8,11 +11,27 @@
 	density = FALSE
 	icon = 'icons/roguetown/misc/foliage.dmi'
 	icon_state = "glowshroom1" //replaced in New
-	layer = ABOVE_NORMAL_TURF_LAYER
-	plane = GAME_PLANE
+	layer = SPACEVINE_LAYER //A bit high but keeps it from fucking layering UNDER EVERYTHING
+	light_system = MOVABLE_LIGHT
 	max_integrity = 30
 	blade_dulling = DULLING_CUT
 	resistance_flags = FLAMMABLE
+	light_outer_range = 2
+	light_inner_range = 1
+	light_power = 1.5
+	light_color = "#d4fcac"
+
+/obj/structure/glowshroom/dendorite
+	var/timeleft = 5 MINUTES //balancing factor no longer relevant, uncommoent if gay // update: it was gay
+
+/obj/structure/glowshroom/dendorite/Initialize()
+	. = ..()
+	if(timeleft)
+		QDEL_IN(src, timeleft)
+
+/obj/structure/glowshroom/dendorite/attackby(obj/item/W, mob/user, params)
+	// Dendorite glowshrooms don't electrocute when hit
+	. = ..()
 
 /obj/structure/glowshroom/fire_act(added, maxstacks)
 	visible_message(span_warning("[src] catches fire!"))
@@ -23,20 +42,38 @@
 /obj/structure/glowshroom/CanAStarPass(ID, to_dir, caller)
 	return !can_zap(caller)
 
+
+
 /obj/structure/glowshroom/CanPass(atom/movable/mover, turf/target)
+	var/dmg = electrodam
+	var/d = debuffdir
+	if(istype(src, /obj/structure/glowshroom/dendorite))
+		dmg = dendordam
+		d = debuffdir/2
 	if(isliving(mover) && mover.z == z)
-//		var/throwdir = get_dir(src, mover)
+		var/throwdir = get_dir(src, mover)
 		var/mob/living/L = mover
 
 		if(HAS_TRAIT(L, TRAIT_KNEESTINGER_IMMUNITY)) //Dendor kneestinger immunity
 			return TRUE
 
-		if(L.electrocute_act(30, src))
-			src.take_damage(15)
+		if(L.mind)
+			if(world.time > L.last_client_interact + 0.2 SECONDS)
+				return FALSE
+		if(world.time < (L.mob_timers["kneestinger"] + 30 SECONDS))
+			dmg = electrodam/2 // reduced damage on repeat exposure 
+		L.Immobilize(d/2 SECONDS)
+		L.apply_status_effect(/datum/status_effect/debuff/clickcd, d SECONDS)
+		L.apply_status_effect(/datum/status_effect/buff/lightningstruck, d SECONDS)
+		if(L.electrocute_act(dmg, src, 1, SHOCK_NOSTUN))
+			L.mob_timers["kneestinger"] = world.time
+			src.take_damage(30) //self-destructing plants woa.... .. .. . . 
+			if(!(L.m_intent == MOVE_INTENT_SNEAK || L.rogue_sneaking))
+				L.consider_ambush(always = TRUE)
 			if(L.throwing)
 				L.throwing.finalize(FALSE)
-//			if(mover.loc != loc && L.stat == CONSCIOUS)
-//				L.throw_at(get_step(L, throwdir), 1, 1, L, spin = FALSE)
+			if(mover.loc != loc && L.stat == CONSCIOUS)
+				L.throw_at(get_step(L, throwdir), pick(1,5), 1, L, spin = FALSE)
 			return FALSE
 	. = ..()
 
@@ -46,19 +83,36 @@
 	var/mob/living/victim = movable_victim
 	if(HAS_TRAIT(victim, TRAIT_KNEESTINGER_IMMUNITY)) //Dendor kneestinger immunity
 		return FALSE
+	if(victim.mind)
+		if(world.time > victim.last_client_interact + 0.2 SECONDS)
+			return FALSE
 	if(victim.throwing)	//Exemption from floor hazard, you're thrown over it.
 		victim.throwing.finalize(FALSE)
-	//if(victim.is_floor_hazard_immune)	//Floating, flying, etc
-		//return FALSE
+	if(ismob(movable_victim))
+		var/mob/mob_victim = movable_victim
+		if(mob_victim.is_floor_hazard_immune())	//Floating, flying, etc
+			return FALSE //why was this fucking commented out
 	return TRUE
 
 /obj/structure/glowshroom/proc/do_zap(atom/movable/movable_victim)
 	if(!isliving(movable_victim))
 		return FALSE
+	var/dmg = electrodam
+	var/d = debuffdir
+	if(istype(src, /obj/structure/glowshroom/dendorite))
+		dmg = dendordam
+		d = debuffdir/2
 	var/mob/living/victim = movable_victim
-	if(victim.electrocute_act(30, src))
+	if(world.time < (victim.mob_timers["kneestinger"] + 30 SECONDS))
+		dmg = electrodam/2
+	victim.Immobilize(d/2 SECONDS)
+	victim.apply_status_effect(/datum/status_effect/debuff/clickcd, d SECONDS)
+	victim.apply_status_effect(/datum/status_effect/buff/lightningstruck, d SECONDS)
+	if(victim.electrocute_act(dmg, src, 1, SHOCK_NOSTUN))
+		victim.mob_timers["kneestinger"] = world.time
 		victim.emote("painscream")
-		victim.update_sneak_invis(TRUE)
+		if(!(victim.m_intent == MOVE_INTENT_SNEAK || victim.rogue_sneaking))
+			victim.consider_ambush(always = TRUE)
 		if(victim.throwing)
 			victim.throwing.finalize(FALSE)
 		return TRUE
@@ -76,11 +130,23 @@
 
 
 /obj/structure/glowshroom/attackby(obj/item/W, mob/user, params)
+	var/dmg = electrodam
+	var/d = debuffdir
+	if(istype(src, /obj/structure/glowshroom/dendorite))
+		dmg = dendordam
+		d = debuffdir/2
 	if(isliving(user) && W && user.z == z)
 		if(W.flags_1 & CONDUCT_1)
 			var/mob/living/L = user
-			if(L.electrocute_act(30, src)) // The kneestingers will let you pass if you worship dendor, but they won't take your stupid ass hitting them.
+			if(world.time < (L.mob_timers["kneestinger"] + 30 SECONDS))
+				dmg = electrodam/2
+			L.Immobilize(d/2 SECONDS)
+			L.apply_status_effect(/datum/status_effect/debuff/clickcd, d SECONDS)
+			L.apply_status_effect(/datum/status_effect/buff/lightningstruck, d SECONDS)
+			if(L.electrocute_act(dmg, src, 1, SHOCK_NOSTUN)) // The kneestingers will let you pass if you worship dendor, but they won't take your stupid ass hitting them.
 				L.emote("painscream")
+				if(!(L.m_intent == MOVE_INTENT_SNEAK || L.rogue_sneaking))
+					L.consider_ambush(always = TRUE)
 				if(L.throwing)
 					L.throwing.finalize(FALSE)
 				return FALSE
@@ -89,8 +155,6 @@
 
 /obj/structure/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)
 	..()
-	set_light(1.5, 1.5, 1.5, l_color ="#d4fcac")
-
 	icon_state = "glowshroom[rand(1,3)]"
 
 	pixel_x = rand(-4, 4)
@@ -111,3 +175,4 @@
 	var/obj/effect/decal/cleanable/molten_object/I = new (get_turf(src))
 	I.desc = ""
 	qdel(src)
+
