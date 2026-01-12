@@ -310,8 +310,8 @@
 	if(!top.IsStun())
 		var/stun_chance = !top.cmode && !tugging_knot_blocked ? 7 : 20
 		if(prob(stun_chance))
-			var/datum/component/arousal/top_arousal = top.GetComponent(/datum/component/arousal)
 			/* Caustic Cove edit - Removing pain from knotting for now. See top edit for more!
+			var/datum/component/arousal/top_arousal = top.GetComponent(/datum/component/arousal)
 			top_arousal?.try_do_pain_effect(PAIN_MILD_EFFECT, FALSE)
 			*/ // Caustic Cove Edit End
 
@@ -325,8 +325,8 @@
 	if(!btm.IsStun())
 		if(prob(5))
 			btm.emote("groan")
-			var/datum/component/arousal/btm_arousal = btm.GetComponent(/datum/component/arousal)
 			/* Caustic Cove edit - Removing pain from knotting for now. See top edit for more!
+			var/datum/component/arousal/btm_arousal = btm.GetComponent(/datum/component/arousal)
 			btm_arousal?.try_do_pain_effect(PAIN_MED_EFFECT, FALSE)
 			*/ // Caustic Cove Edit End
 			btm.Stun(15)
@@ -368,8 +368,8 @@
 		if(prob(10))
 			btm.emote("groan")
 			//! TODO: replace this with a sginal I'mtired boss
-			var/datum/component/arousal/btm_arousal = btm.GetComponent(/datum/component/arousal)
 			/* Caustic Cove edit - Removing pain from knotting for now. See top edit for more!
+			var/datum/component/arousal/btm_arousal = btm.GetComponent(/datum/component/arousal)
 			btm_arousal?.try_do_pain_effect(PAIN_MED_EFFECT, FALSE)
 			*/ // Caustic Cove Edit End
 			btm.Stun(15)
@@ -417,8 +417,8 @@
 		if(notify)
 			top.visible_message(span_notice("[top] yanks their knot out of [btm]!"),
 				span_notice("I yank my knot out from [btm]."))
-			var/datum/component/arousal/btm_arousal = btm.GetComponent(/datum/component/arousal)
 			/* Caustic Cove edit - Removing pain from knotting for now. See top edit for more!
+			var/datum/component/arousal/btm_arousal = btm.GetComponent(/datum/component/arousal)
 			btm_arousal?.try_do_pain_effect(PAIN_HIGH_EFFECT, FALSE)
 			*/ // Caustic Cove Edit End
 	else if(notify)
@@ -426,8 +426,8 @@
 		top.visible_message(span_notice("[top] slips their knot out of [btm]!"),
 			span_notice("I slip my knot out from [btm]."))
 		btm.emote("painmoan", forced = TRUE)
-		var/datum/component/arousal/btm_arousal = btm.GetComponent(/datum/component/arousal)
 		/* Caustic Cove edit - Removing pain from knotting for now. See top edit for more!
+		var/datum/component/arousal/btm_arousal = btm.GetComponent(/datum/component/arousal)
 		btm_arousal?.try_do_pain_effect(PAIN_MILD_EFFECT, FALSE)
 		*/ // Caustic Cove Edit End
 
