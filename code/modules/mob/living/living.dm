@@ -1,6 +1,7 @@
 /mob/living
 	//used by the basic ai controller /datum/ai_behavior/basic_melee_attack to determine how fast a mob can attack
 	var/melee_cooldown = CLICK_CD_MELEE
+	var/pain_threshold = 0
 
 /mob/living/Initialize()
 	. = ..()
@@ -59,8 +60,8 @@
 		points += "!"
 	visible_message(span_danger("[src] falls down[points]"), \
 					span_danger("I fall down[points]"))
-	playsound(src.loc, 'sound/foley/zfall.ogg', 100, FALSE)
 	if(!isgroundlessturf(T))
+		playsound(src.loc, 'sound/foley/zfall.ogg', 100, FALSE)
 		ZImpactDamage(T, levels)
 		record_round_statistic(STATS_MOAT_FALLERS)
 	return ..()
@@ -200,6 +201,17 @@
 			if(L.dir == get_dir(src, L))
 				self_points += 2
 
+			// Shields matter
+			var/list/obj/item/user_inhand = get_held_items()
+			var/list/obj/item/target_inhand = L.get_held_items()
+
+			for(var/obj/I in user_inhand)
+				if(istype(I, /obj/item/rogueweapon/shield))
+					self_points += 2
+			for(var/obj/I in target_inhand)
+				if(istype(I, /obj/item/rogueweapon/shield))
+					target_points += 2
+
 			// Randomize con roll from -1 to +1 to make it less consistent
 			self_points += rand(-1, 1)
 
@@ -225,7 +237,7 @@
 			if(self_points == target_points)
 				L.Knockdown(1)
 				Knockdown(30)
-			Immobilize(10)
+			Immobilize(5)
 			var/playsound = FALSE
 			if(L.apply_damage(15, BRUTE, "chest", L.run_armor_check("chest", "blunt", damage = 10)))
 				playsound = TRUE
@@ -379,12 +391,12 @@
 	if(CZ)
 		if( !(check_zone(L.zone_selected) in acceptable) )
 			to_chat(L, span_warning("I can't reach that."))
-			testing("reach2")
+
 			return FALSE
 	else
 		if( !(L.zone_selected in acceptable) )
 			to_chat(L, span_warning("I can't reach that."))
-			testing("reach2")
+
 			return FALSE
 	return TRUE
 
@@ -491,6 +503,9 @@
 				C.grippedby(src)
 			if(!supress_message)
 				send_pull_message(target)
+			var/signal_result = SEND_SIGNAL(target, COMSIG_LIVING_GRAB_SELF_ATTEMPT, target, used_limb)
+			if(signal_result & COMPONENT_CANCEL_GRAB_ATTACK)
+				return FALSE
 		else
 			var/obj/item/grabbing/O = new()
 			O.name = "[target.name]"
@@ -507,6 +522,9 @@
 				target.grippedby(src)
 			if(!supress_message)
 				send_pull_message(target)
+			var/signal_result = SEND_SIGNAL(target, COMSIG_LIVING_GRAB_SELF_ATTEMPT, target, zone_selected)
+			if(signal_result & COMPONENT_CANCEL_GRAB_ATTACK)
+				return FALSE
 
 		update_pull_movespeed()
 		set_pull_offsets(target, state)
@@ -646,7 +664,6 @@
 					dropItemToGround(I, silent = FALSE)
 	reset_offsets("pulledby")
 	reset_pull_offsets(src)
-
 	. = ..()
 
 	update_pull_movespeed()
@@ -876,7 +893,7 @@
 /mob/living/proc/revive(full_heal = FALSE, admin_revive = FALSE)
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, full_heal, admin_revive)
 	if(full_heal)
-		fully_heal(admin_revive = admin_revive)
+		fully_heal(admin_revive = admin_revive, break_restraints = admin_revive)
 	if(stat == DEAD && (admin_revive || can_be_revived())) //in some cases you can't revive (e.g. no brain)
 		GLOB.dead_mob_list -= src  //If any more forms of revival are added, better to use a proc to do this - easier to search
 		GLOB.alive_mob_list += src
@@ -917,11 +934,8 @@
 		var/obj/item/item = i
 		SEND_SIGNAL(item, COMSIG_ITEM_WEARERCROSSED, AM, src)
 
-
-
-//proc used to completely heal a mob.
-//admin_revive = TRUE is used in other procs, for example mob/living/carbon/fully_heal()
-/mob/living/proc/fully_heal(admin_revive = FALSE)
+/// proc used to completely heal a mob. admin_revive = TRUE is used in other procs, for example mob/living/carbon/fully_heal()
+/mob/living/proc/fully_heal(admin_revive = FALSE, break_restraints = FALSE)
 	restore_blood()
 	setToxLoss(0, 0) //zero as second argument not automatically call updatehealth().
 	setOxyLoss(0, 0)
@@ -1145,7 +1159,7 @@
 				for(var/mob/M in buckled_mobs)
 					riding_datum.force_dismount(M)
 
-/mob/living/proc/submit(var/instant = FALSE)
+/mob/living/proc/submit(instant = FALSE)
 	set name = "Yield"
 	set category = "IC"
 	set hidden = 1
@@ -1782,6 +1796,10 @@
 			should_be_lying = buckled.buckle_lying
 
 	if(should_be_lying)
+		// Track when we transition from standing to prone for dismemberment grace period
+		if(mobility_flags & MOBILITY_STAND)
+			if(mob_timers)
+				mob_timers["last_standing"] = world.time
 		resting = TRUE
 		mobility_flags &= ~MOBILITY_STAND
 		if(buckled)
@@ -1833,7 +1851,6 @@
 			layer = initial(layer)
 	update_cone_show()
 	update_transform()
-	lying_prev = lying
 
 	// Movespeed mods based on arms/legs quantity
 	if(!get_leg_ignore())
@@ -2260,7 +2277,8 @@
 		if(ttime < 0)
 			ttime = 0
 
-	visible_message(span_info("[src] looks down through [T]."))
+	if(m_intent != MOVE_INTENT_SNEAK)
+		visible_message(span_info("[src] looks down through [T]."))
 
 	if(!do_after(src, ttime, target = src))
 		return
@@ -2320,7 +2338,7 @@
 
 	if(stealthy)
 		to_chat(src, span_notice("I secretly offer [offered_item] to [offered_to]."))
-		to_chat(offered_to, span_notice("[offered_to] secretly offers [offered_item] to me..."))
+		to_chat(offered_to, span_notice("[src] secretly offers [offered_item] to me..."))
 	else
 		visible_message(
 			span_notice("[src] offers [offered_item] to [offered_to] with an outstretched hand."), \
@@ -2328,7 +2346,7 @@
 			vision_distance = COMBAT_MESSAGE_RANGE, \
 			ignored_mobs = list(offered_to)
 		)
-		to_chat(offered_to, span_notice("[offered_to] offers [offered_item] to me..."))
+		to_chat(offered_to, span_notice("[src] offers [offered_item] to me..."))
 
 	new /obj/effect/temp_visual/offered_item_effect(get_turf(src), offered_item, src, offered_to, stealthy)
 

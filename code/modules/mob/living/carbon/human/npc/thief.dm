@@ -10,6 +10,9 @@
 	aggressive= TRUE
 	wander = TRUE
 
+	//Thieves, often smart and slippery.
+	smart_combatant = TRUE
+
 /mob/living/carbon/human/species/human/northern/thief/retaliate(mob/living/L)
 	.=..()
 	if(m_intent == MOVE_INTENT_SNEAK)
@@ -112,7 +115,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	if(prob(50))
 		wrists = /obj/item/clothing/wrists/roguetown/bracers/copper
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/half/copper
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/copper
 	if(prob(50))
 		armor = /obj/item/clothing/suit/roguetown/armor/leather
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light

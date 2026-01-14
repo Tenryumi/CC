@@ -91,6 +91,13 @@
 
 /obj/effect/proc_holder/spell/invoked/raise_undead_formation/cast(list/targets, mob/living/user)
 	..()
+	// Caustic Edit Start
+	// Just in case the user doesn't have the spells to manage their minions
+	if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/minion_order))
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
+	if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/gravemark))
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
+	// Caustic Edit End
 
 	var/turf/T = get_turf(targets[1])
 	if(!isopenturf(T))
@@ -158,6 +165,11 @@
 
 /obj/effect/proc_holder/spell/invoked/raise_undead_guard/cast(list/targets, mob/living/user)
 	..()
+	// Caustic Edit Start - Adds Gravmark
+	// We don't give "Order Minion" here because it by design does not work with the stronger undead.
+	if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/gravemark))
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
+	// Caustic Edit End
 
 	var/turf/T = get_turf(targets[1])
 	if(!isopenturf(T))
@@ -256,11 +268,11 @@
 			to_chat(user, span_warning("It would be unwise to make an enemy of your own skeletons."))
 			return FALSE
 		if(target.mind && target.mind.current)
-			if (faction_tag in target.mind.current.faction)
-				target.mind.current.faction -= faction_tag
+			if (faction_tag in target.mind?.current.faction)
+				target.mind?.current.faction -= faction_tag
 				user.say("Hostis declaratus es.")
 			else
-				target.mind.current.faction += faction_tag
+				target.mind?.current.faction += faction_tag
 				user.say("Amicus declaratus es.")
 		else if(istype(target, /mob/living/simple_animal))
 			if (faction_tag in target.faction)

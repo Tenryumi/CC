@@ -352,3 +352,19 @@
 /obj/item/book/granter/spell_points/voiddragon
 	name = "Arcyne Void Insight"
 	spellpoints = 6
+
+//Caustic Edit Start
+/obj/item/book/granter/spell/blackstone/sizespell // Enlarge/Reduce Size Spell
+	name = "Scroll of Reduce/Enlarge"
+	spell = /obj/effect/proc_holder/spell/targeted/touch/sizespell
+	spellname = "Reduce/Enlarge"
+	icon_state ="scrolldarkred"
+	oneuse = TRUE
+
+/obj/item/book/granter/spell/blackstone/mirror_transform // Mirror Transform Spell
+    name = "Scroll of Mirror Transform"
+    spell = /obj/effect/proc_holder/spell/invoked/mirror_transform
+    spellname = "Mirror Transform"
+    icon_state ="scrolldarkred"
+    oneuse = TRUE
+//Caustic Edit End

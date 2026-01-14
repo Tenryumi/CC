@@ -22,7 +22,9 @@
 				/mob/living/carbon/human/species/orc/npc/footsoldier = 10, 
 				/mob/living/carbon/human/species/orc/npc/berserker = 10,
 				/mob/living/carbon/human/species/orc/npc/marauder = 10,
-				/mob/living/carbon/human/species/goblin/npc/ambush/sea = 40)
+				/mob/living/carbon/human/species/goblin/npc/ambush/sea = 40,
+				new /datum/ambush_config/hobgoblin_band = 15,
+				new /datum/ambush_config/hobgoblin_band/circus = 5)
 	first_time_text = "THE AZURE COAST"
 	converted_type = /area/rogue/indoors/shelter/woods
 	deathsight_message = "somewhere betwixt Abyssor's realm and Dendor's bounty"
@@ -51,7 +53,6 @@
 	droning_sound = 'sound/music/area/dungeon2.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	converted_type = /area/rogue/outdoors/dungeon1
 	deathsight_message = "somewhere betwixt Abyssor's realm and Dendor's bounty"
 	threat_region = THREAT_REGION_AZUREAN_COAST
 	detail_text = DETAIL_TEXT_MAD_DUKE_COURT

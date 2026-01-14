@@ -5,6 +5,7 @@
 	icon_state = "tights"
 	item_state = "tights"
 //	adjustable = CAN_CADJUST
+	sellprice = 3
 
 /obj/item/clothing/under/roguetown/tights/random/Initialize()
 	color = pick("#544236", "#435436", "#543836", "#79763f")
@@ -42,6 +43,13 @@
 /obj/item/clothing/under/roguetown/tights/sailor
 	name = "sailor's pants"
 	icon_state = "sailorpants"
+	salvage_amount = 1
+
+/obj/item/clothing/under/roguetown/tights/explorerpants
+	name = "explorer's pants"
+	desc = "Practical and modest, you hope that it will survive the next cavedive."
+	icon_state = "explorerpants"
+	item_state = "explorerpants"
 
 /obj/item/clothing/under/roguetown/tights/puritan
 	name = "formal breeches"
@@ -57,6 +65,8 @@
 	item_state = "webs"
 	r_sleeve_status = SLEEVE_NOMOD
 	l_sleeve_status = SLEEVE_NOMOD
+	salvage_result = /obj/item/natural/silk
+	salvage_amount = 1
 
 /obj/item/clothing/under/roguetown/loincloth
 	name = "loincloth"
@@ -72,3 +82,6 @@
 
 /obj/item/clothing/under/roguetown/loincloth/pink
 	color = "#b98ae3"
+
+/obj/item/clothing/under/roguetown/loincloth/deprived
+	color = "#464040"

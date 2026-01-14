@@ -41,6 +41,13 @@
 					/obj/item/rogueweapon/sword/cutlass,
 				)
 
+/datum/supply_pack/rogue/steel_weapons/sword
+	name = "Arming Sword"
+	cost = 40 // 1 Steel Ingot
+	contains = list(
+					/obj/item/rogueweapon/sword,
+				)
+
 /datum/supply_pack/rogue/steel_weapons/shortsword
 	name = "Shortsword"
 	cost = 40 // 1 Steel Ingot
@@ -62,8 +69,6 @@
 					/obj/item/rogueweapon/sword/short/messer,
 				)
 
-// No one order generic sword I CBA
-
 /datum/supply_pack/rogue/steel_weapons/sabre
 	name = "Sabre"
 	cost = 40 // 1 Steel Ingot
@@ -84,7 +89,14 @@
 	contains = list(
 					/obj/item/rogueweapon/mace/warhammer/steel,
 				)
-
+//Caustic Edit
+/datum/supply_pack/rogue/steel_weapons/picksteel
+	name = "Steel Pick"
+	cost = 45 // 1 Steel Ingot + Stick
+	contains = list(
+					/obj/item/rogueweapon/pick/steel,
+				)
+//Caustic Edit End
 /datum/supply_pack/rogue/steel_weapons/longsword
 	name = "Longsword"
 	cost = 70 // 2 Steel Ingot
@@ -146,6 +158,13 @@
 	cost = 75 // 2 Steel Ingot, 1 Small Log
 	contains = list(
 					/obj/item/rogueweapon/greataxe/steel,
+				)
+
+/datum/supply_pack/rogue/steel_weapons/greataxeknight
+	name = "Steel Poleaxe"
+	cost = 85 // 2 Steel Ingot, 1 Small Log
+	contains = list(
+					/obj/item/rogueweapon/greataxe/steel/knight,
 				)
 
 /datum/supply_pack/rogue/steel_weapons/greataxedoublehead

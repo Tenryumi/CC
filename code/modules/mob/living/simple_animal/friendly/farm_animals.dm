@@ -139,7 +139,7 @@
 	. = ..()
 	can_buckle = TRUE
 	buckle_lying = FALSE
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding/no_ocean)
 	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 8), TEXT_SOUTH = list(0, 8), TEXT_EAST = list(-2, 8), TEXT_WEST = list(2, 8)))
 	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
@@ -359,8 +359,10 @@
 
 /obj/item/udder/proc/beingmilked()
 	in_use = TRUE
-	sleep(20)
-	in_use = FALSE
+	//Caustic Edit
+	spawn(20)
+		in_use = FALSE
+	//Caustic Edit End
 
 //grenchensnacker
 

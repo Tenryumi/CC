@@ -5,6 +5,8 @@
 	aggressive=1
 	rude = TRUE
 	mode = NPC_AI_IDLE
+	smart_combatant = TRUE
+	special_attacker = TRUE
 	faction = list("psy_vault_guard")
 	ambushable = FALSE
 	cmode = 1
@@ -12,7 +14,7 @@
 	flee_in_pain = FALSE
 	a_intent = INTENT_HELP
 	d_intent = INTENT_PARRY
-	possible_mmb_intents = list(INTENT_BITE, INTENT_JUMP, INTENT_KICK, INTENT_STEAL)
+	possible_mmb_intents = list(INTENT_BITE, INTENT_JUMP, INTENT_KICK, INTENT_SPECIAL)
 	possible_rmb_intents = list(
 		/datum/rmb_intent/feint,\
 		/datum/rmb_intent/aimed,\

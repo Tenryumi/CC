@@ -8,13 +8,19 @@
 	cmode_music = 'sound/music/combat_physician.ogg'
 	traits_applied = list(TRAIT_MEDICINE_EXPERT, TRAIT_NOSTINK, TRAIT_EMPATH, TRAIT_DODGEEXPERT, TRAIT_DECEIVING_MEEKNESS, TRAIT_ALCHEMY_EXPERT)
 	subclass_stats = list(
-		STATKEY_INT = 4,
-		STATKEY_SPD = 3,
-		STATKEY_LCK = 3
+		//Caustic edit
+		STATKEY_INT = 3,
+		STATKEY_PER = 1,
+		STATKEY_SPD = 2,
+		STATKEY_LCK = 1
+		//Caustic edit end
 	)
+	age_mod = /datum/class_age_mod/bandit/sawbones
 	subclass_skills = list(
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
+		//Caustic edit
+		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
+		//Caustic edit end
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/carpentry = SKILL_LEVEL_JOURNEYMAN,
@@ -49,10 +55,6 @@
 					/obj/item/flashlight/flare/torch = 1,
 					/obj/item/bedroll = 1,
 					)
-	if(H.age == AGE_OLD)
-		H.change_stat(STATKEY_SPD, -1)
-		H.change_stat(STATKEY_INT, 1)
-		H.change_stat(STATKEY_PER, 1)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 

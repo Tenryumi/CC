@@ -18,6 +18,7 @@
 	detail_color = "#262927"
 	altdetail_color = "#FFFFFF"
 	max_integrity = ARMOR_INT_HELMET_STEEL + 15
+	sellprice = 40 //Grenzel...
 
 /obj/item/clothing/head/roguetown/helmet/sallet/grenzelhoft/update_icon()
 	cut_overlays()
@@ -50,6 +51,7 @@
 	detail_color = "#262927"
 	altdetail_color = "#FFFFFF"
 	max_integrity = ARMOR_INT_HELMET_STEEL + 10
+	sellprice = 40
 
 /obj/item/clothing/head/roguetown/helmet/bascinet/etruscan/grenzelhoft/update_icon()
 	cut_overlays()
@@ -81,6 +83,7 @@
 	color = "#FFFFFF"
 	detail_color = "#262927"
 	altdetail_color = "#FFFFFF"
+	sellprice = 100 //Even trade.
 
 /obj/item/clothing/head/roguetown/helmet/blacksteel/modern/armet/grenzelhoft/update_icon()
 	cut_overlays()
@@ -111,6 +114,7 @@
 	name = "take hat off steel sallet"
 	result = list(/obj/item/clothing/head/roguetown/grenzelhofthat = 1, /obj/item/clothing/head/roguetown/helmet/sallet = 1)
 	reqs = list(/obj/item/clothing/head/roguetown/helmet/sallet/grenzelhoft = 1)
+	bypass_dupe_test = TRUE
 	craftdiff = 0
 
 /datum/crafting_recipe/roguetown/sewing/grenzelklapper
@@ -118,12 +122,14 @@
 	result = list(/obj/item/clothing/head/roguetown/helmet/bascinet/etruscan/grenzelhoft)
 	reqs = list(/obj/item/clothing/head/roguetown/grenzelhofthat = 1,
 	            /obj/item/clothing/head/roguetown/helmet/bascinet/etruscan = 1)
+	bypass_dupe_test = TRUE
 	craftdiff = 0
 
 /datum/crafting_recipe/roguetown/sewing/grenzelklapper/off
 	name = "take hat off etruscan bascinet"
 	result = list(/obj/item/clothing/head/roguetown/grenzelhofthat = 1, /obj/item/clothing/head/roguetown/helmet/bascinet/etruscan = 1)
 	reqs = list(/obj/item/clothing/head/roguetown/helmet/bascinet/etruscan/grenzelhoft = 1)
+	bypass_dupe_test = TRUE
 	craftdiff = 0
 
 /datum/crafting_recipe/roguetown/sewing/grenzelblack
@@ -131,4 +137,5 @@
 	result = list(/obj/item/clothing/head/roguetown/helmet/blacksteel/modern/armet/grenzelhoft)
 	reqs = list(/obj/item/clothing/head/roguetown/grenzelhofthat = 1,
 	            /obj/item/clothing/head/roguetown/helmet/blacksteel/modern/armet = 1)
+	bypass_dupe_test = TRUE
 	craftdiff = 0

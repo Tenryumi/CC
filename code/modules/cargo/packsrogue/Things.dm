@@ -102,7 +102,9 @@
 
 /datum/supply_pack/rogue/Things/Dragonscale
 	name = "Dragonscale Necklace"
-	cost = 900
+	//Caustic edit
+	cost = 750
+	//Caustic edit end
 	contains = list(/obj/item/clothing/neck/roguetown/blkknight)
 
 /datum/supply_pack/rogue/Things/smokebomb
@@ -125,3 +127,12 @@
 	cost = 5
 	contains = list(/obj/item/storage/belt/rogue/leather)
 
+/datum/supply_pack/rogue/Things/clotchkit
+	name = "Sewing Kit"
+	cost = 30
+	contains = list(/obj/item/repair_kit)
+
+/datum/supply_pack/rogue/Things/metalkit
+	name = "Armor Plate"
+	cost = 50
+	contains = list(/obj/item/repair_kit/metal)

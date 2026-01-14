@@ -114,6 +114,20 @@
 	created_item = /obj/item/folding_table_stored
 	craftdiff = 1
 
+/datum/anvil_recipe/engineering/folding_alchcauldron
+	name = "Folding Cauldron (+1 Small Log, +Stone Pot, +Tin)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/grown/log/tree/small, /obj/item/reagent_containers/glass/bucket/pot/stone, /obj/item/ingot/tin)
+	created_item = /obj/item/folding_alchcauldron_stored
+	craftdiff = 3
+
+/datum/anvil_recipe/engineering/folding_alchstation_stored
+	name = "Alchemical Station Kit (+2 Small Log, +Bottle, +Cog)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/grown/log/tree/small, /obj/item/grown/log/tree/small, /obj/item/reagent_containers/glass/bottle, /obj/item/roguegear)
+	created_item = /obj/item/folding_alchstation_stored
+	craftdiff = 3
+
 /datum/anvil_recipe/engineering/bronze/lamptern
 	name = "Lamptern, Bronze (x3)"
 	req_bar = /obj/item/ingot/bronze
@@ -273,21 +287,28 @@
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/natural/hide/cured, /obj/item/magic/infernal/ash, /obj/item/rogueore/coal) //Expensive bag to not blow up
 	created_item = /obj/item/powderflask
-	craftdiff = 5
+	craftdiff = 3
 
 /datum/anvil_recipe/engineering/bulletpouch
 	name = "Bullet Pouch (+1 Cured Leather)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/natural/hide/cured) //Bag of bullets
 	created_item = /obj/item/quiver/bulletpouch
-	craftdiff = 5
+	craftdiff = 0
 
 /datum/anvil_recipe/engineering/leadbullets
 	name = "Firearm Bullets (x10)"
 	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/ammo_casing/caseless/rogue/bullet
 	createditem_num = 10
-	craftdiff = 5
+	craftdiff = 2
+
+/datum/anvil_recipe/engineering/ramrod
+	name = "Replacement Firearm Ramrod"
+	req_bar = /obj/item/ingot/iron
+	created_item = /obj/item/ramrod
+	createditem_num = 1
+	craftdiff = 2
 //Caustic edit end
 
 //combat gear
