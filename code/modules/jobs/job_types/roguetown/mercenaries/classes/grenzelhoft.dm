@@ -365,7 +365,7 @@
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,	// crafting for pallisades, lumberjacking for not fucking up wood
 	)
 
-/datum/outfit/job/roguetown/mercenary/grenzelhoft_arquebusier/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/mercenary/grenzelhoft_arquebusier/pre_equip(mob/living/carbon/human/H) //CC exclusive class
 	..()
 	to_chat(H, span_warning("You are a former veteran arbalest, outfitted with the latest technologies known to man. Your weapons remain as deadly to the enemy as to you, but your training should overcome it. Run them down, with fire and sword."))
 	beltr = /obj/item/rogueweapon/stoneaxe/woodcut/steel
@@ -388,6 +388,7 @@
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants
 	shoes = /obj/item/clothing/shoes/roguetown/grenzelhoft
 	gloves = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves
+	backl = /obj/item/rogueweapon/scabbard/gwstrap
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	backpack_contents = list(
 		/obj/item/roguekey/mercenary = 1,
