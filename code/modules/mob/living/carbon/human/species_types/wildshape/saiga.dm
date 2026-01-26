@@ -25,7 +25,12 @@
 		src.STASPD = 13
 
 		AddSpell(new /obj/effect/proc_holder/spell/self/saigahoofs)
-		real_name = "saiga doe" //So we don't get a random name
+		//Caustic Edit - Name is based on the gender instead!
+		if(gender == "male")
+			real_name = "saiga buck"
+		else
+			real_name = "saiga doe" //So we don't get a random name
+		//Caustic Edit End
 
 // SAIGA SPECIES DATUM //
 /datum/species/shapesaiga
