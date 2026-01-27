@@ -18,11 +18,13 @@
 	bigboy = TRUE
 	gripsprite = TRUE
 	wlength = WLENGTH_LONG
-	slot_flags = ITEM_SLOT_BACK
+	slot_flags = null
 	w_class = WEIGHT_CLASS_BULKY
 	randomspread = 1
 	spread = 0
-
+	equip_delay_self = 1.5 SECONDS
+	unequip_delay_self = 1.5 SECONDS
+	inv_storage_delay = 1.5 SECONDS
 	can_parry = TRUE
 	minstr = 6
 	walking_stick = TRUE
@@ -284,6 +286,9 @@
 	randomspread = 1
 	spread = 0
 	can_parry = TRUE
+	equip_delay_self = 1.5
+	unequip_delay_self = 1.5
+	inv_storage_delay = 1 SECONDS	
 	minstr = 6
 	walking_stick = FALSE
 	cartridge_wording = "musketball"

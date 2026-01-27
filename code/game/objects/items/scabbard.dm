@@ -528,7 +528,7 @@
 	if(.)
 		if(sheathed)
 			return FALSE
-		if(istype(A, /obj/item/rogueweapon))
+		if(istype(A, /obj/item/rogueweapon) || istype(A, /obj/item/gun/ballistic/arquebus)) //CC edit
 			if(A.w_class >= WEIGHT_CLASS_BULKY)
 				return TRUE
 		if(!istype(A, /obj/item/clothing/neck/roguetown/psicross)) //snowflake that bypasses the valid_blades that i made. i will commit seppuku eventually
