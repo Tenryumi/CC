@@ -256,7 +256,7 @@
 	keys = list(/obj/item/roguekey/garrison, /obj/item/roguekey/walls, /obj/item/roguekey/manor, /obj/item/roguekey/knight)
 
 /obj/item/storage/keyring/squire
-	keys = list(/obj/item/roguekey/walls, /obj/item/roguekey/manor)
+	keys = list(/obj/item/roguekey/walls, /obj/item/roguekey/manor, /obj/item/roguekey/garrison) //Caustic Edit - Added Garrison Key back to the Squire's Ring
 
 //////////////
 // GARRISON //

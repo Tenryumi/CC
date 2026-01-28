@@ -36,4 +36,9 @@
 		if("whimper")
 			used = list('sound/vo/mobs/hyena/groan.ogg')
 
+	//Caustic Edit - Add defaults to sounds here as well!
+	if(!used)
+		used = ..(soundin, modifiers)
+	//Caustic Edit End
+
 	return used
