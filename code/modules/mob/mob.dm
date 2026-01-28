@@ -1307,8 +1307,8 @@ GLOBAL_VAR_INIT(mobids, 1)
 	verify_nutrition()
 	//Caustic edit end
 
-// Caustic edit - Adds set_max_nutrition
-///For set maximum mob nutrition
+// Caustic edit - Adds set_max_nutrition and verify_nutrition
+///Sets maximum mob nutrition
 /mob/proc/set_max_nutrition(change)
 	maxnutrition = max(0, change)
 	verify_nutrition()
