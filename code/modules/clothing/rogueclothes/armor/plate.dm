@@ -332,6 +332,7 @@
 	peel_threshold = 5	//-Any- weapon will require 5 peel hits to peel coverage off of this armor.
 	sellprice = 150 //Heretical armor!!!
 
+/* //Caustic Edit - Allow dropping of Heretic Armors (so fun can happen :P)
 /obj/item/clothing/suit/roguetown/armor/plate/full/matthios/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -341,6 +342,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
+*/ //Caustic Edit End
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/zizo
 	name = "avantyne fullplate"
@@ -351,6 +353,7 @@
 	chunkcolor = "#363030"
 	sellprice = 150 //Heretical armor!!!
 
+/* //Caustic Edit - Allow dropping of Heretic Armors (so fun can happen :P)
 /obj/item/clothing/suit/roguetown/armor/plate/full/zizo/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -360,6 +363,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
+*/ //Caustic Edit End
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/bikini
 	name = "full-plate corset"

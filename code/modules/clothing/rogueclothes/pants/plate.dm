@@ -77,9 +77,10 @@
 	armor = ARMOR_ASCENDANT
 	sellprice = 100 //Heretical~
 
+/* //Caustic Edit - Allow dropping of Heretic Armors (so fun can happen :P)
 /obj/item/clothing/under/roguetown/platelegs/matthios/Initialize()
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT) //Casutic Edit - Allow dropping of Heretic Armors (so fun can happen :P)
 	AddComponent(/datum/component/cursed_item, TRAIT_COMMIE, "ARMOR")
 
 /obj/item/clothing/under/roguetown/platelegs/matthios/dropped(mob/living/carbon/human/user)
@@ -87,6 +88,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
+*/ //Caustic Edit End
 
 /obj/item/clothing/under/roguetown/platelegs/zizo
 	max_integrity = ARMOR_INT_LEG_ANTAG
@@ -97,9 +99,10 @@
 	prevent_crits = PREVENT_CRITS_ALL
 	sellprice = 100 //Heretical~
 
+/* //Caustic Edit - Allow dropping of Heretic Armors (so fun can happen :P)
 /obj/item/clothing/under/roguetown/platelegs/zizo/Initialize()
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT) //Caustic Edit - Allow dropping of Heretic Armors
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "ARMOR")
 
 /obj/item/clothing/under/roguetown/platelegs/zizo/dropped(mob/living/carbon/human/user)
@@ -107,6 +110,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
+*/ //Caustic Edit End
 
 /obj/item/clothing/under/roguetown/platelegs/zizo/Initialize(mapload)
 	. = ..()

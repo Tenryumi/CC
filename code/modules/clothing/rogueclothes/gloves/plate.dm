@@ -67,6 +67,7 @@
 	icon_state = "matthiosgloves"
 	max_integrity = ARMOR_INT_SIDE_ANTAG
 
+/* //Caustic Edit - Allow dropping of Heretic Armors (so fun can happen :P)
 /obj/item/clothing/gloves/roguetown/plate/matthios/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -76,7 +77,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-
+*/ //Caustic Edit End
 
 /obj/item/clothing/gloves/roguetown/plate/zizo
 	name = "avantyne gauntlets"
@@ -86,6 +87,7 @@
 	chunkcolor = "#363030"
 	sellprice = 44
 
+/* //Caustic Edit - Allow dropping of Heretic Armors (so fun can happen :P)
 /obj/item/clothing/gloves/roguetown/plate/zizo/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -95,6 +97,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
+*/ //Caustic Edit End
 
 /obj/item/clothing/gloves/roguetown/plate/shadowgauntlets
 	name = "darkplate gauntlets"
